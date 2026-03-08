@@ -1,17 +1,8 @@
-package com.example.user.entity;
-
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+package com.example.user.response;
 
 import java.util.Date;
 
-@Document(collection = "user_data")
-public class User {
-
-
-    @Id
-    private Integer id;
+public class UserResponseDetails {
     private String firstName;
     private String lastName;
     private String gender;
@@ -20,10 +11,8 @@ public class User {
     private int age;
     private Date createdDate;
     private Date modifiedDate;
-    public User(){}
-
-    public User(Integer uid, String firstName, String lastName, String gender, String emailAddress, String phoneNumber, int age, Date createdDate, Date modifiedDate) {
-        this.id = uid;
+    public UserResponseDetails(){}
+    public UserResponseDetails(String firstName, String lastName, String gender, String emailAddress, String phoneNumber, int age, Date createdDate, Date modifiedDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -32,14 +21,6 @@ public class User {
         this.age = age;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
-    }
-
-    public Integer getUid() {
-        return id;
-    }
-
-    public void setUid(Integer uid) {
-        this.id = uid;
     }
 
     public String getFirstName() {
@@ -104,13 +85,5 @@ public class User {
 
     public void setModifiedDate(Date modifiedDate) {
         this.modifiedDate = modifiedDate;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 }
