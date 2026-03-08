@@ -1,0 +1,26 @@
+# dependencies
+/node_modules
+
+# build files
+/dist
+/build
+
+# environment files
+.env
+
+# logs
+npm-debug.log
+yarn-error.log
+
+# IDE files
+.vscode
+.idea
+# Maven build folder
+target/
+
+
+# OS files
+.DS_Store
+Thumbs.db
+
+
