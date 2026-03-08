@@ -1,6 +1,11 @@
- {
-     "id": 6,
-     "name": "raman",
-     "email": "raman@gmail.com",
-     "contact": 997080
-   }
+{
+  "id": 6,
+  "firstName": "Raman",
+  "lastName": "Kumar",
+  "gender": "Male",
+  "emailAddress": "raman@gmail.com",
+  "phoneNumber": "9970800000",
+  "age": 28,
+  "createdDate": "2026-03-08T08:51:53.979+00:00",
+  "modifiedDate": "2026-03-08T08:51:53.979+00:00"
+}
