@@ -1,16 +1,9 @@
-package com.example.user.entity;
-
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+package com.example.user.request;
 
 import java.util.Date;
 
-@Document(collection = "user_data")
-public class User {
+public class UserRequestDetails {
 
-
-    @Id
     private Integer id;
     private String firstName;
     private String lastName;
@@ -20,10 +13,10 @@ public class User {
     private int age;
     private Date createdDate;
     private Date modifiedDate;
-    public User(){}
+    public UserRequestDetails(){}
 
-    public User(Integer uid, String firstName, String lastName, String gender, String emailAddress, String phoneNumber, int age, Date createdDate, Date modifiedDate) {
-        this.id = uid;
+    public UserRequestDetails(Integer id, String firstName, String lastName, String gender, String emailAddress, String phoneNumber, int age, Date createdDate, Date modifiedDate) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -32,14 +25,6 @@ public class User {
         this.age = age;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
-    }
-
-    public Integer getUid() {
-        return id;
-    }
-
-    public void setUid(Integer uid) {
-        this.id = uid;
     }
 
     public String getFirstName() {
@@ -113,6 +98,4 @@ public class User {
     public void setId(Integer id) {
         this.id = id;
     }
-
-
 }

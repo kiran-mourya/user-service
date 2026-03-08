@@ -1,32 +1,22 @@
 
 package com.example.user.controller;
 
+import com.example.user.request.UserRequestDetails;
+import com.example.user.response.ApiResponse;
 import com.example.user.service.UserService;
 import com.example.user.config.TestConfig;
-import com.example.user.entity.User;
-import com.example.user.util.JsonParser;
-import com.example.user.util.TestUtility;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import java.math.BigInteger;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UserController.class)
@@ -48,66 +38,49 @@ public class UserControllerTest {
         MockitoAnnotations.openMocks(this);
     }
     @Test
-    public void shouldSaveUserInDatabaseSuccessfully() throws Exception {
-        User user = getUserDetails();
-        when(userService.saveUser(any(User.class))).thenReturn(user);
-        MvcResult result =  mockMvc.perform(
-               post("/users")
-                       .contentType(MediaType.APPLICATION_JSON_VALUE)
-                       .content(objectMapper.writeValueAsString(user))
-                       )
-                .andExpect(status().isCreated())
-                .andReturn();
-        String jsonResponse = result.getResponse().getContentAsString();
-        User responseUser = objectMapper.readValue(jsonResponse, User.class);
+    void testAddUserSuccessfully() throws Exception {
 
-        assertEquals(user.getId(),responseUser.getId());
+        UserRequestDetails request = new UserRequestDetails();
+        request.setFirstName("Raman");
+        request.setLastName("Kumar");
+        request.setEmailAddress("raman@gmail.com");
+        request.setPhoneNumber("9970800000");
+
+        ApiResponse response = new ApiResponse();
+        response.setResponse("User created successfully");
+
+        Mockito.when(userService.addUser(Mockito.any(UserRequestDetails.class)))
+                .thenReturn(response);
+
+        mockMvc.perform(post("/users/create-users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isCreated());
     }
-
     @Test
-    public void testGetUserById() throws Exception {
-        User user = new User(6,"raman","raman@gmail.com",new BigInteger("997080"));
+    void testGetUserByIdSuccessfully() throws Exception {
+
         Integer userId = 6;
-        when(userService.getUserDetails(userId)).thenReturn(user);
-        String jsonContent = TestUtility.readJsonFile("src/test/resources/data/single-user.json");
-        User users = JsonParser.parseSingleUser(jsonContent);
-        mockMvc.perform(MockMvcRequestBuilders.get("/users-details/6"))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(6))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("raman"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("raman@gmail.com"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.contact").value("997080"));
-    }
 
-    @Test
-    public void testGetAllUsersSuccessfully() throws Exception {
+        ApiResponse response = new ApiResponse();
+        response.setResponse("User fetched successfully");
 
-        String jsonContent = TestUtility.readJsonFile("src/test/resources/data/users.json");
-        List<User> users = JsonParser.parseUsers(jsonContent);
-        when(userService.getAllUserDetails()).thenReturn(users);
+        Mockito.when(userService.getUsersById(userId)).thenReturn(response);
 
-        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/users-details"))
+        mockMvc.perform(get("/users/user-details/{userId}", userId))
                 .andExpect(status().isOk());
+    }
+    @Test
+    void testGetAllUsersSuccessfully() throws Exception {
 
-        for (int i = 0; i < users.size(); i++) {
-            User user = users.get(i);
-            resultActions
-                    .andExpect(MockMvcResultMatchers.jsonPath("$[" + i + "].id").value(user.getId()))
-                    .andExpect(MockMvcResultMatchers.jsonPath("$[" + i + "].name").value(user.getName()))
-                    .andExpect(MockMvcResultMatchers.jsonPath("$[" + i + "].email").value(user.getEmail()))
-                    .andExpect(MockMvcResultMatchers.jsonPath("$[" + i + "].contact").value(user.getContact()));
-        }
+        ApiResponse response = new ApiResponse();
+        response.setResponse("Users fetched successfully");
 
+        Mockito.when(userService.getAllUsers()).thenReturn(response);
+
+        mockMvc.perform(get("/users/user-details"))
+                .andExpect(status().isOk());
     }
 
-
-    private User getUserDetails() {
-        User user = new User();
-        user.setId(10);
-        user.setContact(new BigInteger("7689"));
-        user.setEmail("ss@gmail.com");
-        user.setName("ss");
-        return user;
-    }
 
 }

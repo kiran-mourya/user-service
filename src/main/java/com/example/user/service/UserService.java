@@ -1,17 +1,16 @@
 package com.example.user.service;
 
-import com.example.user.entity.User;
 
-import java.util.List;
-import java.util.Optional;
+import com.example.user.request.UserRequestDetails;
+import com.example.user.response.ApiResponse;
 
 public interface UserService {
 
-    public User saveUser(User user);
+    public ApiResponse addUser(UserRequestDetails userRequestDetails);
 
-    public List<User> getAllUserDetails();
+    ApiResponse getAllUsers();
 
-    public User getUserDetails(Integer id);
-    Optional<User> getUserByEmail(String email);
+    ApiResponse getUsersById(Integer userId);
 
+    ApiResponse deleteUser(Integer userId);
 }
