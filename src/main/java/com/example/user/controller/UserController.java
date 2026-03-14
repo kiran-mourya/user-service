@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+
     private UserService userService;
 
     @Autowired
@@ -32,13 +33,13 @@ public class UserController {
     }
 
     @GetMapping("/user-details/{userId}")
-    public ResponseEntity<ApiResponse> getUsersById(@PathVariable Integer userId) {
+    public ResponseEntity<ApiResponse> getUsersById(@PathVariable String userId) {
         ApiResponse apiResponse = userService.getUsersById(userId);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<ApiResponse> deleteUser(@PathVariable Integer userId) {
+    public ResponseEntity<ApiResponse> deleteUser(@PathVariable String userId) {
         ApiResponse apiResponse = userService.deleteUser(userId);
         return new ResponseEntity<>(apiResponse, HttpStatus.NO_CONTENT);
     }

@@ -10,7 +10,7 @@ public interface UserService {
 
     ApiResponse getAllUsers();
 
-    ApiResponse getUsersById(Integer userId);
+    ApiResponse getUsersById(String userId);
 
-    ApiResponse deleteUser(Integer userId);
+    ApiResponse deleteUser(String userId);
 }

@@ -14,10 +14,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.random.RandomGenerator;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -36,17 +35,25 @@ public class UserServiceImpl implements UserService{
         User userRequesttoSave = null;
         User userResponseAfterSave = null;
         UserResponseDetails userResponseDetails = null;
-        Date currentDate = new Date();
-        userRequest.setCreatedDate(currentDate);
-        userRequest.setModifiedDate(currentDate);
-        ApiResponse apiResponse = UserValidation.userValidation(userRequest);
-        if (userRepository.findUserByEmailAddress(userRequest.getEmailAddress())) {
-            throw new UserAlreadyExistsException(
-                    "User already exists with email:  "+userRequest.getEmailAddress(),
-                    userRequest.getId()
-            );
-        }
-                userRequesttoSave = modelMapper.map(userRequest, User.class);
+        LocalDate currentDate = LocalDate.now();
+
+        UserValidation validation = new UserValidation();
+        ApiResponse apiResponse = validation.userValidation(userRequest);
+//       if (userRepository.findUserByEmailAddress(userRequest.getEmailAddress())) {
+//            throw new UserAlreadyExistsException(
+//                    "User already exists with email:  "+userRequest.getEmailAddress(),
+//                    userRequest.getId()
+//            );
+//        }
+        userRequesttoSave  = new User();
+        userRequesttoSave.setRole(userRequest.getRole());
+        userRequesttoSave.setPassword(userRequest.getPassword());
+        userRequesttoSave.setId(userRequest.getId());
+        userRequesttoSave.setCreatedDate(currentDate);
+        userRequesttoSave.setModifiedDate(currentDate);
+        userRequesttoSave.setuserName(userRequest.getUsername());
+        userRequesttoSave.setEmailAddress(userRequest.getEmailAddress());
+        userRequesttoSave.setPhoneNumber(userRequest.getPhoneNumber());
                 userResponseAfterSave = userRepository.save(userRequesttoSave);
                 userResponseDetails = modelMapper.map(userResponseAfterSave, UserResponseDetails.class);
         apiResponse = new ApiResponse(new ResultCode("user saved successfully !",200,"description",userResponseAfterSave.getUid()
@@ -72,7 +79,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public ApiResponse getUsersById(Integer userId) {
+    public ApiResponse getUsersById(String userId) {
         User user = null;
         UserResponseDetails userResponseDetails=null;
         try{
@@ -92,7 +99,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public ApiResponse deleteUser(Integer userId) {
+    public ApiResponse deleteUser(String userId) {
 
         try{
             Optional<User> userOptional = userRepository.findById(userId);
