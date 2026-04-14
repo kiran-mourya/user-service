@@ -20,12 +20,10 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
-
         if (!request.getUsername().isEmpty() && !request.getPassword().isEmpty()) {
             String token = jwtUtil.generateToken(request.getUsername());
             return ResponseEntity.ok(new AuthResponse(token));
         }
-
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 }
