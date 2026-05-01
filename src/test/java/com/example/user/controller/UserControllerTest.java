@@ -41,10 +41,9 @@ public class UserControllerTest {
     void testAddUserSuccessfully() throws Exception {
 
         UserRequestDetails request = new UserRequestDetails();
-        request.setFirstName("Raman");
-        request.setLastName("Kumar");
+        request.setUsername("Raman Kumar");
         request.setEmailAddress("raman@gmail.com");
-        request.setPhoneNumber("9970800000");
+        request.setPhoneNumber(Long.valueOf("9970800000"));
 
         ApiResponse response = new ApiResponse();
         response.setResponse("User created successfully");
@@ -60,7 +59,7 @@ public class UserControllerTest {
     @Test
     void testGetUserByIdSuccessfully() throws Exception {
 
-        Integer userId = 6;
+        String userId = "6";
 
         ApiResponse response = new ApiResponse();
         response.setResponse("User fetched successfully");

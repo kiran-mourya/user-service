@@ -44,11 +44,11 @@ public class UserServiceTest {
     void testAddUserSuccessfully() {
 
         UserRequestDetails request = new UserRequestDetails();
-        request.setId(1);
+        request.setId("1001");
         request.setEmailAddress("raman@gmail.com");
 
         User user = new User();
-        user.setUid(1);
+        user.setUid("1001");
         user.setEmailAddress("raman@gmail.com");
 
         UserResponseDetails responseDetails = new UserResponseDetails();
@@ -69,10 +69,10 @@ public class UserServiceTest {
     void testGetAllUsersSuccessfully() {
 
         User user1 = new User();
-        user1.setUid(1);
+        user1.setUid("1");
 
         User user2 = new User();
-        user2.setUid(2);
+        user2.setUid("2");
 
         List<User> users = Arrays.asList(user1, user2);
 
@@ -91,7 +91,7 @@ public class UserServiceTest {
     @Test
     void testGetUserByIdSuccessfully() {
 
-        Integer userId = 1;
+        String userId = "1";
 
         User user = new User();
         user.setUid(userId);
@@ -110,7 +110,7 @@ public class UserServiceTest {
     @Test
     void testDeleteUserSuccessfully() {
 
-        Integer userId = 1;
+        String userId = "1";
 
         User user = new User();
         user.setUid(userId);

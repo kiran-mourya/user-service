@@ -1,55 +1,26 @@
 package com.example.user.request;
 
-import java.util.Date;
-
 public class UserRequestDetails {
 
-    private Integer id;
-    private String firstName;
-    private String lastName;
-    private String gender;
+    private String id;
+    private String username;
     private String emailAddress;
-    private String phoneNumber;
-    private int age;
-    private Date createdDate;
-    private Date modifiedDate;
+    private Long phoneNumber;
+
+    private String role;
+    private String password;
+
     public UserRequestDetails(){}
 
-    public UserRequestDetails(Integer id, String firstName, String lastName, String gender, String emailAddress, String phoneNumber, int age, Date createdDate, Date modifiedDate) {
+    public UserRequestDetails(String id, String username, String emailAddress, Long phoneNumber, String role, String password) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gender = gender;
+        this.username = username;
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
-        this.age = age;
-        this.createdDate = createdDate;
-        this.modifiedDate = modifiedDate;
+        this.role = role;
+        this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
 
     public String getEmailAddress() {
         return emailAddress;
@@ -59,43 +30,43 @@ public class UserRequestDetails {
         this.emailAddress = emailAddress;
     }
 
-    public String getPhoneNumber() {
+    public Long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getModifiedDate() {
-        return modifiedDate;
-    }
-
-    public void setModifiedDate(Date modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

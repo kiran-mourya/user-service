@@ -4,9 +4,9 @@ public class ResultCode {
     private String message;
     private int statusCode;
     private String description;
-    private Integer userId;
+    private String userId;
 
-    public ResultCode(String message, int statusCode, String description, Integer userId) {
+    public ResultCode(String message, int statusCode, String description, String userId) {
         this.message = message;
         this.statusCode = statusCode;
         this.description = description;
@@ -37,11 +37,11 @@ public class ResultCode {
         this.description = description;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 }
